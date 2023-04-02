@@ -6,7 +6,7 @@ public class MenuManager : MonoBehaviour
 {
     private int NewScore = 0;
     public TextMeshProUGUI ScoreText;
-    
+
     void Start()
     {
         //ScoreText.text = "High Score: " + PlayerPrefs.GetInt("HighScore");

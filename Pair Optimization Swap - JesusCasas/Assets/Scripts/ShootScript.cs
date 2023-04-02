@@ -30,7 +30,7 @@ public class ShootScript : MonoBehaviour
     void ShootStart()
     {
         Shoot();
-        if(ShootSound != null)
+        if (ShootSound != null)
         {
             ShootSound.Play();
         }

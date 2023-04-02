@@ -9,7 +9,6 @@ public class WormSpawner : MonoBehaviour
     public float trajectoryVariance = 15f;
 
 
-
     private void Start()
     {
         InvokeRepeating(nameof(Spawn), spawnRate, spawnRate);

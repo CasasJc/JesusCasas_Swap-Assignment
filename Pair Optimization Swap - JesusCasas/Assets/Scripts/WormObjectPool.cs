@@ -16,7 +16,7 @@ public class WormObjectPool : MonoBehaviour
 
     private void Start()
     {
-        pooledWorms= new List<WormObj>();
+        pooledWorms = new List<WormObj>();
         WormObj tempWorm;
 
         for (int i = 0; i < amountToPool; i++)

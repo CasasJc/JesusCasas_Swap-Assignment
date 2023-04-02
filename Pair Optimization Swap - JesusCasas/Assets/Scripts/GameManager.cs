@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public AudioSource EnemyHitSound;
 
     public int score = 0;
-    public static int highScore = 0; 
+    public static int highScore = 0;
 
 
     public TextMeshProUGUI scoreText;
@@ -27,13 +27,13 @@ public class GameManager : MonoBehaviour
     }
 
 
-   public void NewGame()
-   {
-       player.transform.position = Vector3.zero;
-       SetScore(0);
-       SetLives(3);
-       Respawn();
-   }
+    public void NewGame()
+    {
+        player.transform.position = Vector3.zero;
+        SetScore(0);
+        SetLives(3);
+        Respawn();
+    }
 
     public void Respawn()
     {
@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
         if (lives <= 0)
         {
             GameOver();
-            
+
         }
 
         else
@@ -91,14 +91,14 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-       
+
         SceneManager.LoadScene("MainMenu");
 
-        if(score > PlayerPrefs.GetInt("HighScore"))
+        if (score > PlayerPrefs.GetInt("HighScore"))
         {
             PlayerPrefs.SetInt("HighScore", score);
         }
-        
+
 
     }
 
@@ -106,9 +106,9 @@ public class GameManager : MonoBehaviour
     {
         this.score = score;
 
-        if(score >= highScore)
+        if (score >= highScore)
         {
-            highScore = score; 
+            highScore = score;
         }
 
         scoreText.text = score.ToString();

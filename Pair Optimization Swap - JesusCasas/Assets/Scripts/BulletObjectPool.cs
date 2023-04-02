@@ -10,19 +10,19 @@ public class BulletObjectPool : MonoBehaviour
     [SerializeField] int amountToPool;
 
 
-    [SerializeField] private Transform shootPoint; 
+    [SerializeField] private Transform shootPoint;
 
     private void Awake()
     {
-        SharedInstance = this; 
+        SharedInstance = this;
     }
 
     private void Start()
     {
         pooledBullets = new List<GameObject>();
-        GameObject tempBullet; 
+        GameObject tempBullet;
 
-        for(int i = 0; i< amountToPool; i++)
+        for (int i = 0; i < amountToPool; i++)
         {
             tempBullet = Instantiate(bulletToPool, shootPoint.position, shootPoint.rotation);
             tempBullet.SetActive(false);

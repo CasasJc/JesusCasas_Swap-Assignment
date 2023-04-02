@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,7 +9,7 @@ public class PlayerCon : MonoBehaviour
     [SerializeField]
     private PlayerInput playerInput;
     public new Rigidbody2D rigidbody { get; private set; }
-    
+
 
     public float thrustSpeed = 1f;
     public bool thrusting;
@@ -25,12 +23,7 @@ public class PlayerCon : MonoBehaviour
     private InputAction ForwardMoveAction;
     private InputAction RightMoveAction;
     private InputAction LeftMoveAction;
-    
 
-    public void Start()
-    {
-    
-    }
 
     private void Awake()
     {
@@ -38,15 +31,13 @@ public class PlayerCon : MonoBehaviour
         ForwardMoveAction = playerInput.actions["MoveForward"];
         RightMoveAction = playerInput.actions["MoveRight"];
         LeftMoveAction = playerInput.actions["MoveLeft"];
-        
+
     }
 
- 
- 
 
     private void Update()
     {
-        if(thrusting)
+        if (thrusting)
         {
             animator.SetBool("IsWalking", true);
             animator.SetBool("IsIdle", false);
@@ -58,7 +49,7 @@ public class PlayerCon : MonoBehaviour
         }
     }
 
-  
+
 
     private void OnEnable()
     {
@@ -86,14 +77,14 @@ public class PlayerCon : MonoBehaviour
         LeftMoveAction.performed -= _ => LeftStart();
         LeftMoveAction.canceled -= _ => LeftStop();
 
-      
+
 
     }
 
     void ForwardStart()
     {
         thrusting = true;
-       
+
     }
     void ForwardStop()
     {
@@ -138,21 +129,21 @@ public class PlayerCon : MonoBehaviour
         }
     }
 
-  
 
-   
 
-   void OnCollisionEnter2D(Collision2D collision)
-   {
+
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
         //Collision Funcnction for when the player collides with Worm Objects
-       if (collision.gameObject.CompareTag("Worm"))
-       {
-           rigidbody.velocity = Vector3.zero;
-           rigidbody.angularVelocity = 0f;
-           gameObject.SetActive(false);
-   
-           FindObjectOfType<GameManager>().PlayerDeath(this);
-       }
-   }
+        if (collision.gameObject.CompareTag("Worm"))
+        {
+            rigidbody.velocity = Vector3.zero;
+            rigidbody.angularVelocity = 0f;
+            gameObject.SetActive(false);
+
+            FindObjectOfType<GameManager>().PlayerDeath(this);
+        }
+    }
 }
 
