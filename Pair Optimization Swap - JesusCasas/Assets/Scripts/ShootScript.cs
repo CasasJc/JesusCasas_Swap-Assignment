@@ -11,9 +11,6 @@ public class ShootScript : MonoBehaviour
 
     private InputAction ShootAction;
 
-    //public Bullet bulletPrefab;
-
-
     private void Awake()
     {
         ShootAction = playerInput.actions["Shoot"];
@@ -33,25 +30,29 @@ public class ShootScript : MonoBehaviour
     void ShootStart()
     {
         Shoot();
-        ShootSound.Play();
+        if(ShootSound != null)
+        {
+            ShootSound.Play();
+        }
+
     }
 
     private void Shoot()
     {
-       GameObject bullet = BulletObjectPool.SharedInstance.GetPooledBullet();
+        GameObject bullet = BulletObjectPool.SharedInstance.GetPooledBullet();
 
-        if(bullet != null)
+        if (bullet != null && this != null)
         {
             bullet.transform.position = transform.position;
             bullet.transform.rotation = transform.rotation;
 
             bullet.SetActive(true);
-
             bullet.GetComponent<Bullet>().Project(transform.up);
         }
-      // Bullet bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
-      // bullet.Project(transform.up);
-        animator.SetTrigger("Shoot");
 
+        if (animator != null)
+        {
+            animator.SetTrigger("Shoot");
+        }
     }
 }

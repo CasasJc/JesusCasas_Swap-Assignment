@@ -30,7 +30,6 @@ public class BulletObjectPool : MonoBehaviour
         }
     }
 
-
     public GameObject GetPooledBullet()
     {
         for (int i = 0; i < amountToPool; i++)

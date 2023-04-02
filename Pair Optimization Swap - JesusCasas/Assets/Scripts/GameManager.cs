@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 
@@ -12,29 +9,28 @@ public class GameManager : MonoBehaviour
     public AudioSource EnemyHitSound;
 
     public int score = 0;
+    public static int highScore = 0; 
+
+
     public TextMeshProUGUI scoreText;
 
     public int lives;
     public TextMeshProUGUI Livestext;
 
     public float InviciblilityTime = 3.0f;
+    public static GameManager SharedInstance;
 
     private void Start()
     {
+        SharedInstance = this;
         NewGame();
     }
 
-   
-
-    private void Update()
-    {
-        
-    }
 
    public void NewGame()
    {
-        player.transform.position = Vector3.zero;
-        SetScore(0);
+       player.transform.position = Vector3.zero;
+       SetScore(0);
        SetLives(3);
        Respawn();
    }
@@ -47,7 +43,6 @@ public class GameManager : MonoBehaviour
         this.player.gameObject.layer = LayerMask.NameToLayer("Ignore Collisions");
         Invoke(nameof(TurnOnCollision), this.InviciblilityTime);
 
-
     }
 
     void TurnOnCollision()
@@ -57,7 +52,7 @@ public class GameManager : MonoBehaviour
 
     public void AsteroidDestroyed(WormObj Worm)
     {
-       explosionEffect.transform.position = Worm.transform.position;
+        explosionEffect.transform.position = Worm.transform.position;
         explosionEffect.Play();
         EnemyHitSound.Play();
         if (Worm.size < 0.7f)
@@ -110,6 +105,12 @@ public class GameManager : MonoBehaviour
     private void SetScore(int score)
     {
         this.score = score;
+
+        if(score >= highScore)
+        {
+            highScore = score; 
+        }
+
         scoreText.text = score.ToString();
     }
 

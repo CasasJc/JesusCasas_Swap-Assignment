@@ -1,15 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WormSpawner : MonoBehaviour
 {
-    public WormObj WormPrefab;
     public float spawnDistance = 12f;
     public float spawnRate = 1f;
     public int amountPerSpawn = 1;
     [Range(0f, 45f)]
     public float trajectoryVariance = 15f;
+
+
 
     private void Start()
     {
@@ -33,12 +32,24 @@ public class WormSpawner : MonoBehaviour
 
             // Create the new Worm by cloning the prefab and set a random
             // size within the range
-            WormObj Worm = Instantiate(WormPrefab, spawnPoint, rotation);
-            Worm.size = Random.Range(Worm.minSize, Worm.maxSize);
 
-            // Set the trajectory to move in the direction of the spawner
-            Vector2 trajectory = rotation * -spawnDirection;
-            Worm.SetTrajectory(trajectory);
+            //Update, now spawns from a list of preexisting worms if they are avaiable - Emilie
+
+            WormObj Worm = WormObjectPool.SharedInstance.GetPooledWorm();
+
+            if (Worm != null)
+            {
+                Worm.gameObject.SetActive(true);
+                Worm.transform.position = spawnPoint;
+                Worm.transform.rotation = rotation;
+
+                //= Instantiate(WormPrefab, spawnPoint, rotation);
+                Worm.size = Random.Range(Worm.minSize, Worm.maxSize);
+
+                // Set the trajectory to move in the direction of the spawner
+                Vector2 trajectory = rotation * -spawnDirection;
+                Worm.SetTrajectory(trajectory);
+            }
         }
     }
 }

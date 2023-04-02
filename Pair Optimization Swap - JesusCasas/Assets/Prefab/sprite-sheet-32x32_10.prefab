@@ -150,4 +150,5 @@ MonoBehaviour:
   minSize: 2
   maxSize: 5
   movementSpeed: 500
-  maxLifetime: 20
+  maxLifetime: 15
+  gameManager: {fileID: 0}

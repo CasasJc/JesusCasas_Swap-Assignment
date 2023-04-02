@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class MenuManager : MonoBehaviour
 {
@@ -12,13 +9,8 @@ public class MenuManager : MonoBehaviour
     
     void Start()
     {
-        ScoreText.text = "High Score: " + PlayerPrefs.GetInt("HighScore");
-    }
-
-    
-    void Update()
-    {
-     
+        //ScoreText.text = "High Score: " + PlayerPrefs.GetInt("HighScore");
+        ScoreText.text = $"High Score: {GameManager.highScore}";
     }
 
     public void QuitGame()
@@ -28,10 +20,7 @@ public class MenuManager : MonoBehaviour
 
     public void PlayGame()
     {
-       
         SceneManager.LoadScene("Level1");
-        
     }
 
-    
 }

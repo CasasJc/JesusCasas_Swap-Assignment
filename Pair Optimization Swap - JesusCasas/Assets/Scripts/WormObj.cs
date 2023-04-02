@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -15,10 +14,13 @@ public class WormObj : MonoBehaviour
     public float movementSpeed = 50f;
     public float maxLifetime = 30f;
 
+    GameManager gameManager;
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         rigidbody = GetComponent<Rigidbody2D>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     private void Start()
@@ -31,7 +33,7 @@ public class WormObj : MonoBehaviour
         rigidbody.mass = size;
 
         // Destroy the asteroid after it reaches its max lifetime
-        Destroy(gameObject, maxLifetime);
+        StartCoroutine(Despawn(maxLifetime));
     }
 
     public void SetTrajectory(Vector2 direction)
@@ -44,9 +46,15 @@ public class WormObj : MonoBehaviour
         if (collision.gameObject.CompareTag("Bullet"))
         {
             // call the function within the manager script and destroy the object
-            FindObjectOfType<GameManager>().AsteroidDestroyed(this);
-            Destroy(gameObject);
+            gameManager.AsteroidDestroyed(this);
+            gameObject.SetActive(false);
         }
+    }
+
+    IEnumerator Despawn(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        gameObject.SetActive(false);
     }
 
   
