@@ -7,7 +7,8 @@ public class WormSpawner : MonoBehaviour
     public int amountPerSpawn = 1;
     [Range(0f, 45f)]
     public float trajectoryVariance = 15f;
-
+    
+    WormObj Worm;
 
     private void Start()
     {
@@ -33,19 +34,17 @@ public class WormSpawner : MonoBehaviour
             // size within the range
 
             //Update, now spawns from a list of preexisting worms if they are avaiable - Emilie
-
-            WormObj Worm = WormObjectPool.SharedInstance.GetPooledWorm();
-
+            Worm = WormObjectPool.SharedInstance.GetPooledWorm();
             if (Worm != null)
             {
-                Worm.gameObject.SetActive(true);
+                Worm.gameObject.SetActive(true); 
                 Worm.transform.position = spawnPoint;
                 Worm.transform.rotation = rotation;
 
-                //= Instantiate(WormPrefab, spawnPoint, rotation);
+                //Setting random worm size
                 Worm.size = Random.Range(Worm.minSize, Worm.maxSize);
 
-                // Set the trajectory to move in the direction of the spawner
+                //Set the trajectory to move in the direction of the spawner
                 Vector2 trajectory = rotation * -spawnDirection;
                 Worm.SetTrajectory(trajectory);
             }

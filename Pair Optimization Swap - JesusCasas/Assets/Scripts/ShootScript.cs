@@ -10,6 +10,8 @@ public class ShootScript : MonoBehaviour
     private PlayerInput playerInput;
 
     private InputAction ShootAction;
+   
+    GameObject bullet;
 
     private void Awake()
     {
@@ -39,7 +41,7 @@ public class ShootScript : MonoBehaviour
 
     private void Shoot()
     {
-        GameObject bullet = BulletObjectPool.SharedInstance.GetPooledBullet();
+        bullet = BulletObjectPool.SharedInstance.GetPooledBullet();  //Activates bullet if one is aviable on the object pool
 
         if (bullet != null && this != null)
         {

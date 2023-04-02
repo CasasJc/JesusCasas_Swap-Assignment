@@ -21,7 +21,6 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
         //Disables bullet to return to object pool when colliding with everything - Emilie
         this.gameObject.SetActive(false);
     }
