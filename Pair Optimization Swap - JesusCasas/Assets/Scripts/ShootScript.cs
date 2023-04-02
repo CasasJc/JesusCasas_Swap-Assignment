@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,19 +11,8 @@ public class ShootScript : MonoBehaviour
 
     private InputAction ShootAction;
 
-    public Bullet bulletPrefab;
+    //public Bullet bulletPrefab;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     private void Awake()
     {
@@ -36,15 +23,11 @@ public class ShootScript : MonoBehaviour
     {
 
         ShootAction.performed += _ => ShootStart();
-        ShootAction.canceled += _ => ShootStop();
 
     }
     private void OnDisable()
     {
-
         ShootAction.performed += _ => ShootStart();
-        ShootAction.canceled += _ => ShootStop();
-
     }
 
     void ShootStart()
@@ -53,15 +36,21 @@ public class ShootScript : MonoBehaviour
         ShootSound.Play();
     }
 
-    void ShootStop()
-    {
-
-    }
-
     private void Shoot()
     {
-        Bullet bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
-        bullet.Project(transform.up);
+       GameObject bullet = BulletObjectPool.SharedInstance.GetPooledBullet();
+
+        if(bullet != null)
+        {
+            bullet.transform.position = transform.position;
+            bullet.transform.rotation = transform.rotation;
+
+            bullet.SetActive(true);
+
+            bullet.GetComponent<Bullet>().Project(transform.up);
+        }
+      // Bullet bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+      // bullet.Project(transform.up);
         animator.SetTrigger("Shoot");
 
     }

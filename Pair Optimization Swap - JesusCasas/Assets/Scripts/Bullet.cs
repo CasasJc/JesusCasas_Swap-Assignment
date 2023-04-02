@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -18,17 +16,13 @@ public class Bullet : MonoBehaviour
 
     public void Project(Vector2 direction)
     {
-        
-        rigidbody.AddForce(direction * speed);
-
-        // Destroy the bullet after it reaches it max lifetime
-        Destroy(gameObject, maxLifetime);
+        rigidbody.AddForce(direction * speed);   
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Destroy the bullet as soon as it collides with anything
-        Destroy(gameObject);
+        this.gameObject.SetActive(false);
     }
 
 }
